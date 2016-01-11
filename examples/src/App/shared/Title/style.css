@@ -1,0 +1,11 @@
+@import 'settings.color';
+
+.main {
+  color: var(--clr-teal);
+  font-size: 2em;
+}
+
+.sub {
+  color: var(--clr-red);
+  font-size: 1.5em;
+}
