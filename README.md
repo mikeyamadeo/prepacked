@@ -1,4 +1,4 @@
-# my-webpack
+# prepacked
 
 The power of webpack with simplified configuration. All the tools to effectively build in development and then ship for production with minimal setup.
 
@@ -8,7 +8,7 @@ Built for those who want to ship production level apps with a 1st class develepm
 
 This
 
-``js
+```js
 
 // webpack.config.js
 var getConfig = require('prepacked')
@@ -19,16 +19,17 @@ module.exports = getConfig({
   out: 'public'
 })
 
-``
+```
+
 +
 
-``json
+```json
 {
   "scripts": {
     "start": "webpack-dev-server --inline --hot"
   }
 }
-``
+```
 
 +
 
