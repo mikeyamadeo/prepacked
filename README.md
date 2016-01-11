@@ -9,8 +9,8 @@ Built for those who want to ship production level apps with a 1st class develepm
 This
 
 ```js
-
 // webpack.config.js
+
 var getConfig = require('prepacked')
 
 module.exports = getConfig({
