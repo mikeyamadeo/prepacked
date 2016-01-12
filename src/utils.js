@@ -26,19 +26,11 @@ function generateError (missingSettings) {
 }
 
 export const withDefaults = ({
-  isDev,
-  src,
-  out,
-  styleSrc,
   resolves = [],
-  html,
-  devServer
+  featureFlags = {},
+  ...rest
 }) => ({
-  isDev,
-  src,
-  out,
-  styleSrc,
   resolves,
-  html,
-  devServer
+  featureFlags,
+  ...rest
 })

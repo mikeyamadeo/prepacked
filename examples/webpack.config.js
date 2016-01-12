@@ -23,6 +23,10 @@ module.exports = getConfig({
     port: 1337
   },
 
+  featureFlags: {
+    '__PROD__': !isDev
+  },
+
   html: function (data) {
     return [
       '<html>',

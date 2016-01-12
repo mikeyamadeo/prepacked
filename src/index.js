@@ -24,7 +24,8 @@ export default (settings) => {
     styleSrc,
     resolves,
     html,
-    devServer
+    devServer,
+    featureFlags
   } = withDefaults(settings)
 
   const commonPlugins = [
@@ -37,7 +38,7 @@ export default (settings) => {
    */
   const commonFeatureFlags = {
     '__DEV__': isDev,
-    '__PROD__': !isDev
+    ...featureFlags
   }
 
   return {
@@ -145,6 +146,7 @@ export default (settings) => {
           loader: isDev
             ? 'style!css?modules&localIdentName=[path]-[local]-[hash:base64:5]!postcss'
             // see css-modules readme for this note -> Note: For prerendering with extract-text-webpack-plugin you should use css-loader/locals instead of style-loader!css-loader in the prerendering bundle. It doesn't embed CSS but only exports the identifier mappings.
+            // https://github.com/webpack/css-loader/issues/59
             : ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap!postcss-loader')
         },
 
