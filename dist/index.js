@@ -24,9 +24,9 @@ var _postcssImport = require('postcss-import');
 
 var _postcssImport2 = _interopRequireDefault(_postcssImport);
 
-var _cssnext = require('cssnext');
+var _postcssCssnext = require('postcss-cssnext');
 
-var _cssnext2 = _interopRequireDefault(_cssnext);
+var _postcssCssnext2 = _interopRequireDefault(_postcssCssnext);
 
 var _libHtmlPlugin = require('./lib/html-plugin');
 
@@ -138,7 +138,7 @@ exports['default'] = function (settings) {
       return [(0, _postcssImport2['default'])({
         path: styleSrc /* [1] */
       }), /* [2] */
-      (0, _cssnext2['default'])()];
+      (0, _postcssCssnext2['default'])()];
     },
 
     /**
@@ -204,7 +204,7 @@ exports['default'] = function (settings) {
       regExp: /\.js$|\.css$/,
       threshold: 10240,
       minRatio: 0.8
-    }), new _webpack.optimize.AggressiveMergingPlugin()]).concat(commonPlugins)
+    })]).concat(commonPlugins)
 
   };
 };

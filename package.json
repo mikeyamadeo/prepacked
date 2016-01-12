@@ -4,6 +4,7 @@
   "description": "The power of webpack with simplified configuration. All the tools to effectively build in development and then ship for production with minimal setup.",
   "main": "dist",
   "scripts": {
+    "prebuild": "rm -rf dist && mkdir dist",
     "build": "babel src --out-dir dist/",
     "test": "npm run build && ava spec.js"
   },
