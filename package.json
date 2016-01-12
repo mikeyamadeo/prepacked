@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "compression-webpack-plugin": "0.2.0",
-    "extract-text-webpack-plugin": "0.8.1",
+    "extract-text-webpack-plugin": "0.8.2",
     "postcss-cssnext": "2.4.0",
     "postcss-import": "7.1.3"
   },
