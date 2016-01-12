@@ -4,7 +4,10 @@ The power of webpack with simplified configuration. All the tools to effectively
 
 Built for those who want to ship production level apps with a 1st class develepment experience and the latest web technologies without the hassle and intimidation inherent with webpack configuration.
 
-#### Dev
+### peerDependencies
+`npm i -save-dev babel-core babel-loader css-loader file-loader postcss-loader style-loader url-loader webpack webpack-dev-server babel-preset-es2015 babel-preset-react`
+
+### Dev
 
 This
 
@@ -47,6 +50,7 @@ To Document:
 * use of env variables to declare isDev value / choose html to use.
 * default html
 * feature flags
+
 
 
 
