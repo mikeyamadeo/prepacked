@@ -1,5 +1,5 @@
 {
-  "name": "y",
+  "name": "prepacked",
   "version": "1.0.0",
   "description": "The power of webpack with simplified configuration. All the tools to effectively build in development and then ship for production with minimal setup.",
   "main": "dist",
@@ -19,10 +19,22 @@
   },
   "dependencies": {
     "compression-webpack-plugin": "0.2.0",
-    "cssnext": "1.8.4",
     "extract-text-webpack-plugin": "0.8.1",
-    "postcss-import": "7.1.3",
-    "webpack": "1.12.9"
+    "postcss-cssnext": "2.4.0",
+    "postcss-import": "7.1.3"
+  },
+  "peerDependencies": {
+    "babel-core": "6.4.0",
+    "babel-loader": "6.2.1",
+    "babel-preset-es2015": "6.3.13",
+    "babel-preset-react": "6.3.13",
+    "css-loader": "0.23.1",
+    "file-loader": "0.8.5",
+    "postcss-loader": "0.8.0",
+    "style-loader": "0.13.0",
+    "url-loader": "0.5.7",
+    "webpack": "1.12.11",
+    "webpack-dev-server": "1.14.1"
   },
   "standard": {
     "parser": "babel-eslint",
