@@ -2,7 +2,7 @@ import { DefinePlugin, optimize } from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
 import cssimport from 'postcss-import'
-import cssnext from 'cssnext'
+import cssnext from 'postcss-cssnext'
 import HtmlPlugin from './lib/html-plugin'
 import { checkRequired, withDefaults } from './utils'
 
