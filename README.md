@@ -1,8 +1,11 @@
-# prepacked
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-Use the power of webpack to effectively build in development and then ship for production with minimal setup.
+prepacked
+=========
 
-What `you` do:
+_Use the power of webpack to effectively build in development and then ship for production with minimal setup._
+
+###### What `you` do:
 
 👌🏼 ️ship production level react apps
 
@@ -12,7 +15,8 @@ What `you` do:
 
 😱 avoid the hassle and intimidation inherent with modern day project configuration
 
-What `prepacked` does:
+
+###### What `prepacked` does:
 
 👋 assumes you may be new to this javascript app building business
 
@@ -20,19 +24,40 @@ What `prepacked` does:
 
 ✨ avoids magic. requires explicit command instead of making implicit assumptions
 
-##Quick Look
+## Quick Look
 
+###### webpack.config.js:
 ```js
-// webpack.config.js
-
+// looks to see if you've told the node "environmnet" to be in production
+var isDev = process.env.NODE_ENV !== 'production'
 var makeConfig = require('prepacked')
 
 module.exports = makeConfig({
-  isDev: true,
+  isDev: isDev,
   src: './src',
   out: './public'
 })
 ```
+
+###### package.json:
+```json
+
+{
+  "scripts": {
+    "dev": "webpack-dev-server --inline --hot",
+    "prod": "NODE_ENV=production webpack"
+  }
+}
+```
+
+Running `npm run dev` will allow you to:
+* write your javascript using es6 and jsx
+* style your app using [CSS Modules](http://glenmaddern.com/articles/css-modules) & [cssnext](http://cssnext.io/)
+* view app at `localhost:8080`. changes automatically update on every save.
+
+Running `npm run prod` will spit out minified, bundled, sourcemapped js and css goodness for you to ship a la:
+![production output](https://www.dropbox.com/s/g6yf4m5penihit1/Screenshot%202016-01-13%2016.04.51.png?dl=0&preview=Screenshot+2016-01-13+16.04.51.png)
+
 
 ### peerDependencies
 `npm i -save-dev babel-core babel-loader css-loader file-loader postcss-loader style-loader url-loader webpack webpack-dev-server babel-preset-es2015 babel-preset-react`
@@ -68,11 +93,7 @@ module.exports = getConfig({
 
 `npm start`
 
-Will allow you to:
-* write your javascript using es6 and jsx
-* style your app using [CSS Modules](http://glenmaddern.com/articles/css-modules) & [cssnext](http://cssnext.io/)
-* view your app at `localhost:8080` (default: see `port` config for other options)
-* have app automatically refresh on every save
+
 
 
 
