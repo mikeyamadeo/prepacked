@@ -3,13 +3,13 @@
 Use the power of webpack to effectively build in development and then ship for production with minimal setup.
 
 
-✅ ship production level react apps
+✌ ️ship production level react apps
 
-✅  enjoy 1st class development experience
+🎉 enjoy 1st class development experience
 
-✅ use latest web technologies
+😘 use latest web technologies
 
-🚫 avoid the hassle and intimidation inherent with modern day project configuration
+😱 avoid the hassle and intimidation inherent with modern day project configuration
 
 
 ### peerDependencies
