@@ -56,8 +56,16 @@ Running `npm run dev` will allow you to:
 * view app at `localhost:8080`. changes automatically update on every save.
 
 Running `npm run prod` will spit out minified, bundled, sourcemapped js and css goodness for you to ship a la:
-![production output](https://www.dropbox.com/s/g6yf4m5penihit1/Screenshot%202016-01-13%2016.04.51.png?dl=0&preview=Screenshot+2016-01-13+16.04.51.png)
-
+```
+public
+├── app.js
+├── app.js.gz
+├── app.js.map
+├── index.html
+├── style.css
+├── style.css.gz
+└── style.css.map
+```
 
 ### peerDependencies
 `npm i -save-dev babel-core babel-loader css-loader file-loader postcss-loader style-loader url-loader webpack webpack-dev-server babel-preset-es2015 babel-preset-react`
