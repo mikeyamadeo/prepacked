@@ -1,8 +1,16 @@
 # prepacked
 
-The power of webpack with simplified configuration. All the tools to effectively build in development and then ship for production with minimal setup.
+Use the power of webpack to effectively build in development and then ship for production with minimal setup.
 
-Built for those who want to ship production level apps with a 1st class develepment experience and the latest web technologies without the hassle and intimidation inherent with webpack configuration.
+
+✅ ship production level react apps
+
+✅  enjoy 1st class development experience
+
+✅ use latest web technologies
+
+🚫 avoid the hassle and intimidation inherent with modern day project configuration
+
 
 ### peerDependencies
 `npm i -save-dev babel-core babel-loader css-loader file-loader postcss-loader style-loader url-loader webpack webpack-dev-server babel-preset-es2015 babel-preset-react`
