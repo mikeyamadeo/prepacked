@@ -51,12 +51,14 @@ module.exports = makeConfig({
 }
 ```
 
-Running `npm run dev` will allow you to:
+###### Development
+Running `npm run dev` in your terminal will allow you to:
 * write your javascript using es6 and jsx
 * style your app using [CSS Modules](http://glenmaddern.com/articles/css-modules) & [cssnext](http://cssnext.io/)
 * view app at `localhost:8080`. changes automatically update on every save.
 
-Running `npm run prod` will spit out minified, bundled, sourcemapped js and css goodness for you to ship a la:
+###### Production
+Running `npm run prod` in your terminal will spit out minified, bundled, sourcemapped js and css goodness for you to ship a la:
 ```
 public
 ├── app.js
@@ -70,37 +72,6 @@ public
 
 ### peerDependencies
 `npm i -save-dev babel-core babel-loader css-loader file-loader postcss-loader style-loader url-loader webpack webpack-dev-server babel-preset-es2015 babel-preset-react`
-
-### Dev
-
-This
-
-```js
-// webpack.config.js
-
-var getConfig = require('prepacked')
-
-module.exports = getConfig({
-  isDev: true,
-  src: 'src',
-  out: 'public'
-})
-
-```
-
-+
-
-```json
-{
-  "scripts": {
-    "start": "webpack-dev-server --inline --hot"
-  }
-}
-```
-
-+
-
-`npm start`
 
 
 
