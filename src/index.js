@@ -1,4 +1,4 @@
-import { DefinePlugin, optimize } from 'webpack'
+import { DefinePlugin, optimize, HotModuleReplacementPlugin } from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
 import cssimport from 'postcss-import'
@@ -32,15 +32,6 @@ export default (settings) => {
     new HtmlPlugin({ html })
   ]
 
-  /**
-   * Feature flags
-   * see: https://github.com/petehunt/webpack-howto#6-feature-flags
-   */
-  const commonFeatureFlags = {
-    '__DEV__': isDev,
-    ...featureFlags
-  }
-
   return {
     devServer,
 
@@ -48,9 +39,9 @@ export default (settings) => {
       ? 'eval'
       : 'cheap-module-source-map',
 
-    entry: [
-      src
-    ],
+    entry: (isDev ? [
+      'webpack-hot-middleware/client?reload=true'
+    ] : []).concat([src]),
 
     output: {
       filename: 'app.js',
@@ -137,7 +128,7 @@ export default (settings) => {
           loader: 'babel-loader',
           include: [src], /* [1] */
           query: {
-            presets: ['es2015', 'react']
+            presets: (isDev ? ['react-hmre'] : []).concat(['es2015', 'react'])
           }
         },
 
@@ -160,7 +151,11 @@ export default (settings) => {
     },
 
     plugins: (isDev
-      ? [ new DefinePlugin(commonFeatureFlags) ]
+      ? [
+          new HotModuleReplacementPlugin(),
+          new DefinePlugin(featureFlags)
+        ]
+
       : [
 
         /**
@@ -193,9 +188,13 @@ export default (settings) => {
           allChunks: true
         }),
 
+        /**
+         * Feature flags
+         * see: https://github.com/petehunt/webpack-howto#6-feature-flags
+         */
         new DefinePlugin({
           'process.env.NODE_ENV': '"production"',
-          ...commonFeatureFlags
+          ...featureFlags
         }),
 
         /**

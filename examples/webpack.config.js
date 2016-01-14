@@ -5,13 +5,6 @@ var out = path.join(__dirname, 'public')
 var styleSrc = path.join(__dirname, 'src', 'App', 'style')
 var isDev = process.env.NODE_ENV !== 'production'
 
-// console.log(getConfig({
-//   isDev: true,
-//   src: path.join(__dirname, 'src'),
-//   out: 'public',
-//   port: 1337
-// }).plugins)
-
 module.exports = getConfig({
   isDev: isDev,
   src: src,
@@ -24,6 +17,7 @@ module.exports = getConfig({
   },
 
   featureFlags: {
+    '__DEV__': isDev,
     '__PROD__': !isDev
   },
 

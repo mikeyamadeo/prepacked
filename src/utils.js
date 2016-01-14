@@ -28,9 +28,15 @@ function generateError (missingSettings) {
 export const withDefaults = ({
   resolves = [],
   featureFlags = {},
+  devServer = {},
   ...rest
 }) => ({
   resolves,
   featureFlags,
+  devServer: {
+    host: 'localhost',
+    port: '8080',
+    ...devServer
+  },
   ...rest
 })
