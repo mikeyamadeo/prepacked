@@ -45,20 +45,20 @@ module.exports = makeConfig({
 
 {
   "scripts": {
-    "dev": "prepacked-dev-server",
-    "prod": "NODE_ENV=production prepacked-build-script"
+    "start "prepacked-dev-server",
+    "build": "NODE_ENV=production prepacked-build-script"
   }
 }
 ```
 
 ###### Development
-Running `npm run dev` in your terminal will allow you to:
+Running `npm start` in your terminal will allow you to:
 * write your javascript using es6 and jsx
 * style your app using [CSS Modules](http://glenmaddern.com/articles/css-modules) & [cssnext](http://cssnext.io/)
 * view app at `localhost:8080`. changes automatically update on every save.
 
 ###### Production
-Running `npm run prod` in your terminal will spit out minified, bundled, sourcemapped js and css goodness for you to ship a la:
+Running `npm run build` in your terminal will spit out minified, bundled, sourcemapped js and css goodness for you to ship a la:
 ```
 public
 ├── app.js
