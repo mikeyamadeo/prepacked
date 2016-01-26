@@ -13,6 +13,7 @@ module.exports = getConfig({
   styleSrc: styleSrc,
 
   devServer: {
+    host: 'Mikeys-Hackbook-Pro.local',
     port: 1337
   },
 
@@ -27,7 +28,6 @@ module.exports = getConfig({
         '<head>',
           '<meta charset="utf-8"/>',
           '<meta name="viewport" content="width=device-width, initial-scale=1">',
-          '<link href="/' + data.css + '" rel="stylesheet" type="text/css" />',
         '</head>',
         '<body>',
           '<div id="app"></div>',

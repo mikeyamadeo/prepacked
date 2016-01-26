@@ -3,31 +3,17 @@
 // Based on
 // https://github.com/gaearon/react-transform-boilerplate/blob/master/devServer.js
 
-import path from 'path'
 import express from 'express'
 import webpack from 'webpack'
+import getConfig from './getConfig'
 
-const {argv, cwd, exit} = process
-const configFile = argv[2] || 'webpack.config.js'
-let config
-
-try {
-  config = require(path.join(cwd(), configFile))
-} catch (e) {
-  console.error(e.stack)
-  console.error(
-    'Failed to load webpack config'
-  )
-  exit(1)
-}
-
+const config = getConfig()
 const app = express()
 const compiler = webpack(config)
 const { devServer } = config
 const { contentBase, port, host } = devServer
 
 app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
   publicPath: config.output.publicPath,
   stats: {
     colors: true

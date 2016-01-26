@@ -9,7 +9,8 @@
     "test": "npm run build && ava spec.js"
   },
   "bin": {
-    "prepacked": "dist/bin/prepacked-dev-server.js"
+    "prepacked-dev-server": "dist/bin/dev-server.js",
+    "prepacked-build-script": "dist/bin/build-script.js"
   },
   "keywords": [
     "webpack",
@@ -28,6 +29,7 @@
     "babel-preset-es2015": "6.3.13",
     "babel-preset-react": "6.3.13",
     "babel-preset-react-hmre": "1.0.1",
+    "chalk": "1.1.1",
     "compression-webpack-plugin": "0.2.0",
     "css-loader": "0.23.1",
     "express": "4.13.3",
