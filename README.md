@@ -71,9 +71,10 @@ public
 ```
 
 To Document:
-* use of env variables to declare isDev value / choose html to use.
-* default html
-* feature flags
+* how prepacked generates html & how to cutomize it
+* adding feature flags like __DEV__ && __PROD__
+* adding entry point for styles
+* devServer configuration / adding host for hot reloading over the network
 
 
 
