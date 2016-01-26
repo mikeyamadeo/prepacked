@@ -46,7 +46,11 @@ module.exports = makeConfig({
 {
   "scripts": {
     "start": "prepacked-dev-server",
-    "build": "NODE_ENV=production prepacked-build-script"
+    "build": "cross-env NODE_ENV=production prepacked-build-script"
+  },
+  "devDependencies": {
+    "cross-env": "1.0.7",
+    "prepacked": "1.3.2"
   }
 }
 ```
