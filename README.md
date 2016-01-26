@@ -45,8 +45,8 @@ module.exports = makeConfig({
 
 {
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot",
-    "prod": "NODE_ENV=production webpack"
+    "dev": "prepacked-dev-server",
+    "prod": "NODE_ENV=production prepacked-build-script"
   }
 }
 ```
@@ -70,17 +70,11 @@ public
 └── style.css.map
 ```
 
-### peerDependencies
-`npm i -save-dev babel-core babel-loader css-loader file-loader postcss-loader style-loader url-loader webpack webpack-dev-server babel-preset-es2015 babel-preset-react`
-
-
-
-
-
 To Document:
-* use of env variables to declare isDev value / choose html to use.
-* default html
-* feature flags
+* how prepacked generates html & how to cutomize it
+* adding feature flags like __DEV__ && __PROD__
+* adding entry point for styles
+* devServer configuration / adding host for hot reloading over the network
 
 
 
