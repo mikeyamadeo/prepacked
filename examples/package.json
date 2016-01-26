@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node ../dist/bin/prepacked-dev-server.js",
-    "prod": "NODE_ENV=production node ../dist/bin/prepacked-dev-server.js",
-    "build": "NODE_ENV=production webpack -p --config --progress"
+    "dev": "prepacked-dev-server",
+    "prod": "NODE_ENV=production prepacked-dev-server",
+    "build": "NODE_ENV=production prepacked-build-script"
   },
   "author": "Mikey Murphy <mikeyamadeo@gmail.com> (https://twitter.com/TranscendMikey)",
   "license": "ISC",
   "devDependencies": {
-    "prepacked": "1.2.0"
+    "prepacked": "1.2.2"
   },
   "dependencies": {
     "react": "0.14.3",
