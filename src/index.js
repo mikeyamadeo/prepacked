@@ -37,7 +37,7 @@ export default (settings) => {
 
     devtool: isDev
       ? 'eval'
-      : 'cheap-module-source-map',
+      : 'source-map',
 
     entry: (isDev ? [
       'webpack-hot-middleware/client?reload=true'
