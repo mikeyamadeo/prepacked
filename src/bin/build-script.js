@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import webpack from 'webpack'
 import getConfig from './getConfig'
 import chalk from 'chalk'
