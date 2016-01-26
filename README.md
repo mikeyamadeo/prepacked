@@ -45,7 +45,7 @@ module.exports = makeConfig({
 
 {
   "scripts": {
-    "start": prepacked-dev-server",
+    "start": "prepacked-dev-server",
     "build": "NODE_ENV=production prepacked-build-script"
   }
 }
