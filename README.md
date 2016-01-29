@@ -50,7 +50,7 @@ module.exports = makeConfig({
   },
   "devDependencies": {
     "cross-env": "1.0.7",
-    "prepacked": "1.3.3"
+    "prepacked": "1.4.0"
   }
 }
 ```
