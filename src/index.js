@@ -128,7 +128,13 @@ export default (settings) => {
           loader: 'babel-loader',
           include: [src], /* [1] */
           query: {
-            presets: (isDev ? ['react-hmre'] : []).concat(['es2015', 'react'])
+            presets: (isDev ? ['react-hmre'] : []).concat([
+              'es2015',
+              'react',
+              { plugins: [
+                'transform-object-rest-spread'
+              ]}
+            ])
           }
         },
 
