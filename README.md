@@ -78,6 +78,7 @@ To Document:
 * how prepacked generates html & how to cutomize it
 * adding feature flags like __DEV__ && __PROD__
 * adding entry point for styles
+* resolves
 * devServer configuration / adding host for hot reloading over the network
 
 

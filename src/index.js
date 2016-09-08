@@ -7,7 +7,6 @@ import HtmlPlugin from './lib/html-plugin'
 import { checkRequired, withDefaults } from './utils'
 
 export default (settings) => {
-
   checkRequired(settings, {
     isDev: 'A boolean to indicate whether or not everything is in production mode or development mode',
     src: 'This should just be the path to the file that serves as the main entry point of your application.',
@@ -44,7 +43,7 @@ export default (settings) => {
     ] : []).concat([src]),
 
     output: {
-      filename: 'app.js',
+      filename: '[name].js',
       path: out,
       publicPath: '/'
     },
@@ -217,6 +216,4 @@ export default (settings) => {
       ]).concat(commonPlugins)
 
   }
-
 }
-
