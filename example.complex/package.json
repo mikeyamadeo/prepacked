@@ -1,0 +1,30 @@
+{
+  "name": "react-scaffold",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "dev": "node ../dist/bin/dev-server.js ./webpack.config.js",
+    "build": "NODE_ENV=production node ../dist/bin/build-script.js ./webpack.config.js",
+    "update": "cd ../ && npm run build && cd ./example.complex"
+  },
+  "author": "Mikey Murphy <mikeyamadeo@gmail.com> (https://twitter.com/TranscendMikey)",
+  "license": "ISC",
+  "dependencies": {
+    "aphrodite": "0.5.0",
+    "react": "15.3.2",
+    "react-dom": "15.3.2",
+    "react-redux": "4.4.5",
+    "react-router": "4.0.0-alpha.3",
+    "redux": "3.6.0",
+    "redux-axios-api-middleware": "0.2.0",
+    "redux-thunk": "2.1.0"
+  },
+  "devDependencies": {},
+  "standard": {
+    "parser": "babel-eslint",
+    "rules": {
+      "strict": 0
+    }
+  }
+}

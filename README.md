@@ -75,12 +75,19 @@ public
 ```
 
 To Document:
-* how prepacked generates html & how to cutomize it
+* how prepacked generates html & how to customize it
 * adding feature flags like __DEV__ && __PROD__
 * adding entry point for styles
 * resolves
 * devServer configuration / adding host for hot reloading over the network
 
-
-
-
+spec:
+feature flags (__DEV__)
+compression
+tree shaking
+resolves
+es6 (spread) features
+extract stylesheet for prod
+hot reloading
+css next
+local dev server

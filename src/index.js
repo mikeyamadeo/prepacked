@@ -1,8 +1,8 @@
-import { DefinePlugin, optimize, HotModuleReplacementPlugin } from 'webpack'
+import webpack from 'webpack'
+import cssnext from 'postcss-cssnext'
+import cssimport from 'postcss-import'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
-import cssimport from 'postcss-import'
-import cssnext from 'postcss-cssnext'
 import HtmlPlugin from './lib/html-plugin'
 import { checkRequired, withDefaults } from './utils'
 
@@ -20,7 +20,6 @@ export default (settings) => {
     isDev,
     src,
     out,
-    styleSrc,
     resolves,
     html,
     devServer,
@@ -30,6 +29,15 @@ export default (settings) => {
   const commonPlugins = [
     new HtmlPlugin({ html })
   ]
+
+  const postcss = [
+    cssimport(),
+    cssnext
+  ]
+
+  const polyfills = {
+    Promise: 'imports?this=>global!exports?global.Promise!es6-promise'
+  }
 
   return {
     devServer,
@@ -50,7 +58,6 @@ export default (settings) => {
 
     resolve: {
       extensions: [
-        '',
         '.js',
         '.css'
       ],
@@ -79,43 +86,13 @@ export default (settings) => {
        *   vs.
        *   import Btn from 'App/shared/Btn'
        */
-      modulesDirectories: [
+      modules: [
         src, /* [1] */
         ...resolves, /* [2] */
         'node_modules'
       ]
 
     },
-
-    /**
-     * 1. Enables clean css dependency imports by telling each import which directory to
-     * import from. With file structure:
-     *
-     * src
-     *  - App
-     *    - style
-     *      - settings.colors.css
-     *    - views
-     *      - Main
-     *        - components
-     *          - Header
-     *
-     * from Header/style.js you can inline settings.colors.css like
-     *   @import 'settings.colors'
-     *   vs.
-     *   @import '../../../../../settings.colors'
-     *
-     * 2. Webpack knows how to inline styles from @import in thanks to css-loader with
-     * modules turned on (css-loader?modules). Otherwise we would need to teach postcss-loader
-     * how to do it by adding `addDependencyTo: webpack` as a `key: value` to cssimport.
-     *
-     */
-    postcss: (webpack) => [
-      cssimport({
-        path: styleSrc /* [1] */
-      }), /* [2] */
-      cssnext()
-    ],
 
     /**
      * 1. Skips any files outside of your project's `src` directory
@@ -128,7 +105,7 @@ export default (settings) => {
           include: [src], /* [1] */
           query: {
             presets: (isDev ? ['react-hmre'] : []).concat([
-              'es2015',
+              ['es2015', {loose: true, modules: false}],
               'react',
               { plugins: [
                 'transform-object-rest-spread'
@@ -138,28 +115,56 @@ export default (settings) => {
         },
 
         {
+          /**
+           * 1. postcss plugin configuration does not work as specified in official docs:
+           * https://github.com/postcss/postcss-loader#webpack-2x-config
+           * had to use config using LoaderOptionsPlugin to get postcss plugins to work properly:
+           * https://github.com/postcss/postcss-loader/issues/92
+           */
           test: /\.css$/,
-          loader: isDev
-            ? 'style!css?modules&localIdentName=[path]-[local]-[hash:base64:5]!postcss'
-            // see css-modules readme for this note -> Note: For prerendering with extract-text-webpack-plugin you should use css-loader/locals instead of style-loader!css-loader in the prerendering bundle. It doesn't embed CSS but only exports the identifier mappings.
-            // https://github.com/webpack/css-loader/issues/59
-            : ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap!postcss-loader')
+          loaders: isDev ? [
+            'style-loader',
+            {
+              loader: 'css-loader',
+              query: { modules: true, localIdentName: '[path]-[local]-[hash:base64:5]', importLoaders: 1 }
+            },
+            'postcss-loader' /* [1] */
+          ] : ExtractTextPlugin.extract({
+            loader: [
+              {
+                loader: 'css-loader',
+                query: { modules: true, localIdentName: '[path]-[local]-[hash:base64:5]' }
+              },
+              'postcss-loader' /* [1] */
+            ]
+          })
+        },
+
+        {
+          test: require.resolve('es6-promise'),
+          loader: 'imports?this=>global'
         },
 
         // Load images
-        { test: /\.jpg/, loader: 'url-loader?limit=10000&mimetype=image/jpg' },
-        { test: /\.gif/, loader: 'url-loader?limit=10000&mimetype=image/gif' },
-        { test: /\.png/, loader: 'url-loader?limit=10000&mimetype=image/png' },
-        { test: /\.svg/, loader: 'url-loader?limit=10000&mimetype=image/svg' }
+        { test: /\.jpg/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/jpg' } },
+        { test: /\.gif/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/gif' } },
+        { test: /\.png/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/png' } },
+        { test: /\.svg/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/svg' } }
 
       ]
     },
 
     plugins: (isDev
       ? [
-          new HotModuleReplacementPlugin(),
-          new DefinePlugin(featureFlags)
-        ]
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin(featureFlags),
+        new webpack.ProvidePlugin(polyfills),
+        new webpack.LoaderOptionsPlugin({
+          options: {
+            postcss
+          }
+        })
+      ]
 
       : [
 
@@ -167,21 +172,34 @@ export default (settings) => {
          * Searches for equal or similar files and deduplicates them in the output.
          * see: https://github.com/webpack/docs/wiki/optimization#deduplication
          */
-        new optimize.DedupePlugin(),
+        new webpack.optimize.DedupePlugin(),
 
         /**
          * Reduces the total file size and is recommended. So why not?
          * see: https://github.com/webpack/docs/wiki/optimization#minimize
          */
-        new optimize.OccurenceOrderPlugin(true),
+        new webpack.optimize.OccurrenceOrderPlugin(true),
 
-        new optimize.UglifyJsPlugin({
+        new webpack.ProvidePlugin(polyfills),
+
+        // minify
+        new webpack.LoaderOptionsPlugin({
+          options: {
+            postcss
+          },
+          minimize: true,
+          debug: true
+        }),
+
+        new webpack.optimize.UglifyJsPlugin({
           compress: {
-            warnings: false
+            screw_ie8: true,
+            warnings: true
           },
           output: {
             comments: false
-          }
+          },
+          sourceMap: false
         }),
 
         /**
@@ -189,7 +207,8 @@ export default (settings) => {
          * output file. Stylesheet bundle is loaded in parallel to the javascript bundle.
          * See: https://github.com/webpack/extract-text-webpack-plugin
          */
-        new ExtractTextPlugin('style.css', {
+        new ExtractTextPlugin({
+          filename: 'style.css',
           allChunks: true
         }),
 
@@ -197,7 +216,7 @@ export default (settings) => {
          * Feature flags
          * see: https://github.com/petehunt/webpack-howto#6-feature-flags
          */
-        new DefinePlugin({
+        new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"production"',
           ...featureFlags
         }),
@@ -206,7 +225,7 @@ export default (settings) => {
          * Source of our gzip power!
          */
         new CompressionPlugin({
-          asset: '{file}.gz',
+          asset: '[file].gz',
           algorithm: 'gzip',
           regExp: /\.js$|\.css$/,
           threshold: 10240,
