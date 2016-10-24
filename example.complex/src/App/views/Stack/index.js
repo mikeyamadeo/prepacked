@@ -1,3 +1,5 @@
+import styles from './style'
+import Async from 'App/shared/util.AsyncComponent'
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
@@ -7,11 +9,9 @@ import { clr } from 'App/style/settings'
 import { capitalize } from 'utils.rendering'
 import { Y } from 'obj.Layout'
 
-console.log(Promise)
-
 const Stack = ({specs}) =>
   <Y className={css(style.container)}>
-    <h1 className={css(style.h1)}>
+    <h1 className={`${css(style.h1)} ${styles.title}`}>
       made with <span className={css(style.heart)}>&#9829;</span> and
     </h1>
     <Y tag='ul' className={css(style.list)}>
@@ -21,6 +21,9 @@ const Stack = ({specs}) =>
         </li>
       )}
     </Y>
+    <Async loader={(cb) => System.import('./components/Hello').then((module) =>
+        cb(module)
+      , 'passwordResetEmail')} />
   </Y>
 
 Stack.propTypes = {

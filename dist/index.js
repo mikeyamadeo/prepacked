@@ -50,6 +50,7 @@ exports['default'] = function (settings) {
 
   var isDev = _withDefaults.isDev;
   var src = _withDefaults.src;
+  var styleSrc = _withDefaults.styleSrc;
   var out = _withDefaults.out;
   var resolves = _withDefaults.resolves;
   var html = _withDefaults.html;
@@ -58,10 +59,11 @@ exports['default'] = function (settings) {
 
   var commonPlugins = [new _libHtmlPlugin2['default']({ html: html })];
 
-  var postcss = [(0, _postcssImport2['default'])(), _postcssCssnext2['default']];
+  var postcss = [(0, _postcssImport2['default'])({
+    path: styleSrc
+  }), _postcssCssnext2['default']];
 
   var polyfills = {
-    /* TODO: NEED TO INSTALL EXPORT-LOADER DUMMY */
     Promise: 'imports?this=>global!exports?global.Promise!es6-promise'
   };
 
@@ -131,7 +133,7 @@ exports['default'] = function (settings) {
         test: /\.css$/,
         loaders: isDev ? ['style-loader', {
           loader: 'css-loader',
-          query: { modules: true, localIdentName: '[path]-[local]-[hash:base64:5]', importLoaders: 1 }
+          query: { modules: true, localIdentName: '[path]-[local]-[hash:base64:5]' }
         }, 'postcss-loader' /* [1] */
         ] : _extractTextWebpackPlugin2['default'].extract({
           loader: [{
@@ -140,35 +142,33 @@ exports['default'] = function (settings) {
           }, 'postcss-loader' /* [1] */
           ]
         })
-      }, {
-        test: require.resolve('es6-promise'),
-        loader: 'imports?this=>global'
       },
 
       // Load images
       { test: /\.jpg/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/jpg' } }, { test: /\.gif/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/gif' } }, { test: /\.png/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/png' } }, { test: /\.svg/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/svg' } }]
     },
 
-    plugins: (isDev ? [new _webpack2['default'].HotModuleReplacementPlugin(), new _webpack2['default'].DefinePlugin(featureFlags), new _webpack2['default'].LoaderOptionsPlugin({
+    plugins: (isDev ? [new _webpack2['default'].HotModuleReplacementPlugin(), new _webpack2['default'].DefinePlugin(featureFlags), new _webpack2['default'].ProvidePlugin(polyfills),
+
+    /**
+     * 1. https://github.com/webpack/webpack/issues/2684
+     */
+    new _webpack2['default'].LoaderOptionsPlugin({
       options: {
+        context: __dirname, /* [1] */
         postcss: postcss
       }
-    }), new _webpack2['default'].ProvidePlugin(polyfills)] : [
+    })] : [
 
     /**
      * Searches for equal or similar files and deduplicates them in the output.
      * see: https://github.com/webpack/docs/wiki/optimization#deduplication
      */
-    new _webpack2['default'].optimize.DedupePlugin(),
-
-    /**
-     * Reduces the total file size and is recommended. So why not?
-     * see: https://github.com/webpack/docs/wiki/optimization#minimize
-     */
-    new _webpack2['default'].optimize.OccurrenceOrderPlugin(true), new _webpack2['default'].ProvidePlugin(polyfills),
+    new _webpack2['default'].optimize.DedupePlugin(), new _webpack2['default'].ProvidePlugin(polyfills),
 
     // minify
     new _webpack2['default'].LoaderOptionsPlugin({
+      context: __dirname, /* [1] */
       options: {
         postcss: postcss
       },

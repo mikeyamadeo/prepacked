@@ -1,0 +1,5 @@
+@import 'css/settings.colors';
+
+.title {
+  color: var(--clr-blue);
+}

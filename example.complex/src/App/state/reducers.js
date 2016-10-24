@@ -1,5 +1,4 @@
 import { createReducer } from 'utils.redux'
-import { shake, shake2 } from './shake'
 
 /**
  * This reducer is here in order to demonstrate inputting and retrieving state w/ redux.

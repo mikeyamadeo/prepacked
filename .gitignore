@@ -3,6 +3,8 @@ bower_components
 .sass-cache
 examples/public
 yarn.lock
+example.complex/public
+example.simple/public
 
 
 # Compiled source #

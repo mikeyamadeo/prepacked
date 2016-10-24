@@ -1,0 +1,5 @@
+@import './main.css'
+
+.title {
+  color: var(--clr-primary);
+}

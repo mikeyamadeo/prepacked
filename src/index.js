@@ -19,6 +19,7 @@ export default (settings) => {
   const {
     isDev,
     src,
+    styleSrc,
     out,
     resolves,
     html,
@@ -31,7 +32,9 @@ export default (settings) => {
   ]
 
   const postcss = [
-    cssimport(),
+    cssimport({
+      path: styleSrc
+    }),
     cssnext
   ]
 
@@ -126,7 +129,7 @@ export default (settings) => {
             'style-loader',
             {
               loader: 'css-loader',
-              query: { modules: true, localIdentName: '[path]-[local]-[hash:base64:5]', importLoaders: 1 }
+              query: { modules: true, localIdentName: '[path]-[local]-[hash:base64:5]' }
             },
             'postcss-loader' /* [1] */
           ] : ExtractTextPlugin.extract({
@@ -138,11 +141,6 @@ export default (settings) => {
               'postcss-loader' /* [1] */
             ]
           })
-        },
-
-        {
-          test: require.resolve('es6-promise'),
-          loader: 'imports?this=>global'
         },
 
         // Load images
@@ -159,11 +157,18 @@ export default (settings) => {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin(featureFlags),
         new webpack.ProvidePlugin(polyfills),
+
+        /**
+         * 1. https://github.com/webpack/webpack/issues/2684
+         */
         new webpack.LoaderOptionsPlugin({
           options: {
+            context: __dirname, /* [1] */
             postcss
           }
-        })
+        }),
+
+        new webpack.optimize.CommonsChunkPlugin({children: true, async: true})
       ]
 
       : [
@@ -173,17 +178,12 @@ export default (settings) => {
          * see: https://github.com/webpack/docs/wiki/optimization#deduplication
          */
         new webpack.optimize.DedupePlugin(),
-
-        /**
-         * Reduces the total file size and is recommended. So why not?
-         * see: https://github.com/webpack/docs/wiki/optimization#minimize
-         */
-        new webpack.optimize.OccurrenceOrderPlugin(true),
-
+        new webpack.optimize.CommonsChunkPlugin({children: true, async: true}),
         new webpack.ProvidePlugin(polyfills),
 
         // minify
         new webpack.LoaderOptionsPlugin({
+          context: __dirname, /* [1] */
           options: {
             postcss
           },
