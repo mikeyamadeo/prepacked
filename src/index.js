@@ -38,6 +38,14 @@ export default (settings) => {
     cssnext
   ]
 
+  /**
+   * 1. https://github.com/webpack/webpack/issues/2684
+   */
+  const loaderOptions = {
+    context: __dirname, /* [1] */
+    postcss
+  }
+
   const polyfills = {
     Promise: 'imports?this=>global!exports?global.Promise!es6-promise'
   }
@@ -158,14 +166,8 @@ export default (settings) => {
         new webpack.DefinePlugin(featureFlags),
         new webpack.ProvidePlugin(polyfills),
 
-        /**
-         * 1. https://github.com/webpack/webpack/issues/2684
-         */
         new webpack.LoaderOptionsPlugin({
-          options: {
-            context: __dirname, /* [1] */
-            postcss
-          }
+          loaderOptions
         }),
 
         new webpack.optimize.CommonsChunkPlugin({children: true, async: true})
@@ -183,10 +185,7 @@ export default (settings) => {
 
         // minify
         new webpack.LoaderOptionsPlugin({
-          context: __dirname, /* [1] */
-          options: {
-            postcss
-          },
+          loaderOptions,
           minimize: true,
           debug: true
         }),

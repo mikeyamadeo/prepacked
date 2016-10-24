@@ -63,6 +63,14 @@ exports['default'] = function (settings) {
     path: styleSrc
   }), _postcssCssnext2['default']];
 
+  /**
+   * 1. https://github.com/webpack/webpack/issues/2684
+   */
+  var loaderOptions = {
+    context: __dirname, /* [1] */
+    postcss: postcss
+  };
+
   var polyfills = {
     Promise: 'imports?this=>global!exports?global.Promise!es6-promise'
   };
@@ -148,16 +156,8 @@ exports['default'] = function (settings) {
       { test: /\.jpg/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/jpg' } }, { test: /\.gif/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/gif' } }, { test: /\.png/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/png' } }, { test: /\.svg/, loader: 'url-loader', query: { limit: 10000, mimetype: 'image/svg' } }]
     },
 
-    plugins: (isDev ? [new _webpack2['default'].HotModuleReplacementPlugin(), new _webpack2['default'].DefinePlugin(featureFlags), new _webpack2['default'].ProvidePlugin(polyfills),
-
-    /**
-     * 1. https://github.com/webpack/webpack/issues/2684
-     */
-    new _webpack2['default'].LoaderOptionsPlugin({
-      options: {
-        context: __dirname, /* [1] */
-        postcss: postcss
-      }
+    plugins: (isDev ? [new _webpack2['default'].HotModuleReplacementPlugin(), new _webpack2['default'].DefinePlugin(featureFlags), new _webpack2['default'].ProvidePlugin(polyfills), new _webpack2['default'].LoaderOptionsPlugin({
+      loaderOptions: loaderOptions
     }), new _webpack2['default'].optimize.CommonsChunkPlugin({ children: true, async: true })] : [
 
     /**
@@ -168,10 +168,7 @@ exports['default'] = function (settings) {
 
     // minify
     new _webpack2['default'].LoaderOptionsPlugin({
-      context: __dirname, /* [1] */
-      options: {
-        postcss: postcss
-      },
+      loaderOptions: loaderOptions,
       minimize: true,
       debug: true
     }), new _webpack2['default'].optimize.UglifyJsPlugin({
