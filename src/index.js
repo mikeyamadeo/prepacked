@@ -199,7 +199,7 @@ export default (settings) => {
           output: {
             comments: false
           },
-          sourceMap: false
+          sourceMap: true
         }),
 
         /**

@@ -158,13 +158,13 @@ exports['default'] = function (settings) {
         context: __dirname, /* [1] */
         postcss: postcss
       }
-    })] : [
+    }), new _webpack2['default'].optimize.CommonsChunkPlugin({ children: true, async: true })] : [
 
     /**
      * Searches for equal or similar files and deduplicates them in the output.
      * see: https://github.com/webpack/docs/wiki/optimization#deduplication
      */
-    new _webpack2['default'].optimize.DedupePlugin(), new _webpack2['default'].ProvidePlugin(polyfills),
+    new _webpack2['default'].optimize.DedupePlugin(), new _webpack2['default'].optimize.CommonsChunkPlugin({ children: true, async: true }), new _webpack2['default'].ProvidePlugin(polyfills),
 
     // minify
     new _webpack2['default'].LoaderOptionsPlugin({
@@ -182,7 +182,7 @@ exports['default'] = function (settings) {
       output: {
         comments: false
       },
-      sourceMap: false
+      sourceMap: true
     }),
 
     /**
