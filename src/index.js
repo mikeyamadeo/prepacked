@@ -227,7 +227,7 @@ export default (settings) => {
         new CompressionPlugin({
           asset: '[file].gz',
           algorithm: 'gzip',
-          regExp: /\.js$|\.css$/,
+          regExp: /\.js$|\.css$|\.gif$|\.png$|\.svg$/,
           threshold: 10240,
           minRatio: 0.8
         })
