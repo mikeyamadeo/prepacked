@@ -1,6 +1,6 @@
 {
   "name": "prepacked",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "The power of webpack with simplified configuration. All the tools to effectively build in development and then ship for production with minimal setup.",
   "main": "dist",
   "scripts": {
