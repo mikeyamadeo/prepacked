@@ -209,7 +209,7 @@ exports['default'] = function (settings) {
     new _compressionWebpackPlugin2['default']({
       asset: '[file].gz',
       algorithm: 'gzip',
-      regExp: /\.js$|\.css$|\.gif$|\.png$|\.svg$/,
+      regExp: /\.js$|\.css$/,
       threshold: 10240,
       minRatio: 0.8
     })]).concat(commonPlugins)
