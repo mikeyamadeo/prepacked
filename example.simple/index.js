@@ -1,5 +1,6 @@
 import style from './styles/styleA'
-import { shake } from './shake'
-import { fA } from './func'
-
-shake(style)
+import deaf, { shake, shake2 } from './shake'
+import { fA, fB } from './func'
+// shake(shake)
+fA()
+fB()

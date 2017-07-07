@@ -5,21 +5,16 @@ var src = path.join('./index.js')
 var styleSrc = path.join('./styles')
 var out = path.join(__dirname, 'public')
 var isDev = process.env.NODE_ENV !== 'production'
-
+console.log(isDev)
 module.exports = getConfig({
   isDev: isDev,
   src: './index.js',
   out: out,
   styleSrc: styleSrc,
-
   devServer: {
     host: 'Mikeys-Hackbook-Pro.local',
-    port: 1337
+    port: 1337,
+    disableHostCheck: true
   },
-
-  featureFlags: {
-    '__DEV__': isDev,
-    '__PROD__': !isDev
-  }
-
+  featureFlags: { __DEV__: isDev, __PROD__: !isDev }
 })
