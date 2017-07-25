@@ -5,7 +5,7 @@ var src = path.join('./index.js')
 var styleSrc = path.join('./styles')
 var out = path.join(__dirname, 'public')
 var isDev = process.env.NODE_ENV !== 'production'
-console.log(isDev)
+
 module.exports = getConfig({
   isDev: isDev,
   src: './index.js',

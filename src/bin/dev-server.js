@@ -2,6 +2,7 @@
 
 // Based on
 // https://github.com/gaearon/react-transform-boilerplate/blob/master/devServer.js
+// see as example for autoreload https://github.com/stsiarzhanau/webpack-react-redux-starter/blob/master/tools/devServer.js
 
 import express from 'express'
 import webpack from 'webpack'
@@ -13,12 +14,13 @@ const compiler = webpack(config)
 const { devServer } = config
 const { contentBase, port, host } = devServer
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  publicPath: config.output.publicPath,
-  stats: {
-    colors: true
-  }
-}))
+app.use(
+  require('webpack-dev-middleware')(compiler, {
+    hot: true,
+    publicPath: config.output.publicPath,
+    stats: { colors: true }
+  })
+)
 
 app.use(require('webpack-hot-middleware')(compiler))
 
@@ -32,5 +34,5 @@ app.listen(port, host, function (err) {
     return
   }
 
-  console.log(`Listening at http://${host}:${port}`)
+  console.log(`🚀 Listening at http://${host}:${port}`)
 })

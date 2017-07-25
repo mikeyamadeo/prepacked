@@ -112,8 +112,10 @@ exports['default'] = function (settings) {
   };
 
   var dev = {
+    entry: ['react-hot-loader/patch', 'webpack-hot-middleware/client', 'webpack/hot/dev-server', src],
     devtool: 'cheap-module-source-map',
     devServer: _extends({
+      hot: true,
       // makes hostnames like http://mikeys-hackbook-pro.local:PORT/ possible
       disableHostCheck: true
     }, devServer),
@@ -125,7 +127,12 @@ exports['default'] = function (settings) {
         exclude: '/node_modules/',
         use: ['style-loader', 'css-loader']
       }]
-    }
+    },
+    plugins: [
+    // enable HMR globally
+    new _webpack2['default'].HotModuleReplacementPlugin(),
+    // prints more readable module names in the browser console on HMR updates
+    new _webpack2['default'].NamedModulesPlugin()]
   };
 
   var prod = {

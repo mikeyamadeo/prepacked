@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { configureStore } from 'redux.store'
 
 const store = configureStore()
-console.log('working?')
+
 const App = () => (
   <Provider {...{ store, key: 'provider' }}>
     <HashRouter>
@@ -18,3 +18,7 @@ const App = () => (
 )
 
 render(<App />, document.querySelector('#app'))
+
+if (module.hot) {
+  module.hot.accept()
+}

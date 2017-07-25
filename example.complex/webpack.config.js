@@ -12,20 +12,9 @@ var config = getConfig({
   src: appPath,
   out: buildPath,
   styleSrc: stylePath,
-  resolves: [
-    'shared',
-    'style'
-  ],
-
-  devServer: {
-    port: 1337,
-    contentBase: buildPath
-  },
-
-  featureFlags: {
-    __DEV__: isDev,
-    __PROD__: isProd
-  }
+  resolves: [ 'shared', 'style' ],
+  devServer: { contentBase: buildPath },
+  featureFlags: { __DEV__: isDev, __PROD__: isProd }
 })
 
 module.exports = config

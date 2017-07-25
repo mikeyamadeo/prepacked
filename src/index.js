@@ -94,8 +94,15 @@ export default settings => {
   }
 
   const dev = {
+    entry: [
+      'react-hot-loader/patch',
+      `webpack-hot-middleware/client`,
+      'webpack/hot/dev-server',
+      src
+    ],
     devtool: 'cheap-module-source-map',
     devServer: {
+      hot: true,
       // makes hostnames like http://mikeys-hackbook-pro.local:PORT/ possible
       disableHostCheck: true,
       ...devServer
@@ -109,7 +116,13 @@ export default settings => {
           use: [ 'style-loader', 'css-loader' ]
         }
       ]
-    }
+    },
+    plugins: [
+      // enable HMR globally
+      new webpack.HotModuleReplacementPlugin(),
+      // prints more readable module names in the browser console on HMR updates
+      new webpack.NamedModulesPlugin()
+    ]
   }
 
   const prod = {

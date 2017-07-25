@@ -4,3 +4,7 @@ import { fA, fB } from './func'
 // shake(shake)
 fA()
 fB()
+
+if (module.hot) {
+  console.log('tyranitar')
+}
