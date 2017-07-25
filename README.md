@@ -61,6 +61,17 @@ Running `npm start` in your terminal will allow you to:
 * style your app using [CSS Modules](http://glenmaddern.com/articles/css-modules) & [cssnext](http://cssnext.io/)
 * view app at `localhost:8080`. changes automatically update on every save.
 
+
+### Hot Module Replacement
+In order for Hot Module Replacement to work, you'll need the following at your app's entry:
+```js
+if (module.hot) {
+  module.hot.accept()
+}
+```
+
+This code will be stripped out of production thanks to dead code elimination because module.hot will be false in production.
+
 ###### Production
 Running `npm run build` in your terminal will spit out minified, bundled, sourcemapped js and css goodness for you to ship a la:
 ```

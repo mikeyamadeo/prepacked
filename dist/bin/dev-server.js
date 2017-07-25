@@ -3,6 +3,7 @@
 
 // Based on
 // https://github.com/gaearon/react-transform-boilerplate/blob/master/devServer.js
+// see as example for autoreload https://github.com/stsiarzhanau/webpack-react-redux-starter/blob/master/tools/devServer.js
 
 'use strict';
 
